@@ -11,6 +11,8 @@ contract SingleAsset is ERC721, Ownable {
     Counters.Counter private _tokenIds;
     mapping(uint256 => string) private _tokenURIs;
 
+    event MintedTokenId(uint256);
+
     constructor() ERC721("MintiSingleAsset", "MSA") {}
 
     function _setTokenURI(uint256 tokenId, string memory _tokenURI)
@@ -44,7 +46,8 @@ contract SingleAsset is ERC721, Ownable {
         uint256 id = _tokenIds.current();
         _mint(recipient, id);
         _setTokenURI(id, uri);
-        console.log("minted token");
+
+        emit MintedTokenId(id);
 
         return id;
     }
