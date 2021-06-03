@@ -49,20 +49,23 @@ contract MultiAsset is ERC1155, Ownable {
         return id;
     }
 
-    function mintBatch(address recipient, string[] memory _uri)
+    function mintBatch(address recipient, string[] memory _uris)
         public
         returns (uint256[] memory)
     {
-        _tokenIds.increment();
         uint256[] memory ids;
+        uint256[] memory amounts;
 
-        for (uint i = 0; i < _uri.length; i ++) {
+        for (uint i = 0; i < _uris.length; i ++) {
+            _tokenIds.increment();
+
             uint256 id = _tokenIds.current();
-            _mint(recipient, id, 1, "");
-            _setTokenURI(id, _uri[i]);
+            _setTokenURI(id, _uris[i]);
             emit MintedTokenId(id);
             ids[i] = id;
+            amounts[i] = 1;
         }
+        _mintBatch(recipient, ids, amounts, "");
 
         return ids;
     }
