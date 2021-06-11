@@ -3,3 +3,10 @@ node_modules
 #Hardhat files
 cache
 artifacts
+secret.json
+secret.*.json
+!secret.example.json
+build
+package-lock.json
+yarn.lock
+keys.json
